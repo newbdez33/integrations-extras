@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Licensed under Simplified BSD License (see LICENSE)
 
 import platform
@@ -43,12 +44,13 @@ class PingCheck(AgentCheck):
             timeoutOption = "-W"
 
         self.log.debug("Running: ping %s %s %s %s %s", countOption, "1", timeoutOption, timeout, target_host)
-
+        self.log.debug("sys.stdout.encoding = " + sys.stdout.encoding)
         # lines, err, retcode = get_subprocess_output(
         #     ["ping", countOption, "1", timeoutOption, str(timeout), target_host], self.log, raise_on_empty_output=True
         # )
         ping = subprocess.run(["ping", target_host, countOption, "1", timeoutOption, timeout], stdout=subprocess.PIPE)
         lines = ping.stdout
+        self.log.debug(ping.stdout.decode(sys.stdout.encoding))
         rettcode = 0    #fake retcode here for now
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
         if retcode != 0:
