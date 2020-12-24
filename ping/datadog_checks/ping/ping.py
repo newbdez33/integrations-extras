@@ -49,6 +49,7 @@ class PingCheck(AgentCheck):
         # )
         ping = subprocess.run(["ping", target_host, countOption, "1", timeoutOption, str(timeout)], stdout=subprocess.PIPE)
         lines = ping.stdout.decode('cp932')
+        lines = lines.replace("時間 =", "time=")
         self.log.debug(lines)
         retcode = 0
         err = 0
