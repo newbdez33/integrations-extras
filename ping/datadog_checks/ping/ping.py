@@ -51,6 +51,7 @@ class PingCheck(AgentCheck):
         lines = ping.stdout
         self.log.debug(lines)
         retcode = 0
+        err = 0
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
         if retcode != 0:
             raise CheckException("ping returned {}: {}".format(retcode, err))
