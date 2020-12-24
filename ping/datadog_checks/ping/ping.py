@@ -48,7 +48,7 @@ class PingCheck(AgentCheck):
         #     ["ping", countOption, "1", timeoutOption, str(timeout), target_host], self.log, raise_on_empty_output=True
         # )
         ping = subprocess.run(["ping", target_host, countOption, "1", timeoutOption, str(timeout)], stdout=subprocess.PIPE)
-        lines = ping.stdout
+        lines = ping.stdout.decode('cp932')
         self.log.debug(lines)
         retcode = 0
         err = 0
