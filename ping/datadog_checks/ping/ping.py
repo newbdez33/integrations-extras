@@ -49,7 +49,7 @@ class PingCheck(AgentCheck):
         # )
         ping = subprocess.run(["ping", target_host, countOption, "1", timeoutOption, timeout], stdout=subprocess.PIPE)
         lines = ping.stdout
-        self.log.debug(ping.stdout.decode(sys.stdout.encoding))
+        self.log.debug(lines)
         retcode = 0
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
         if retcode != 0:
